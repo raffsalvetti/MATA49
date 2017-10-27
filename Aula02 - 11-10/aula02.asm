@@ -15,7 +15,7 @@ print:
     jz end
     PRINT_CHAR [ebx + ecx]
     mov ax, [ebx + ecx]
-    PRINT_DEC 2, ax
+    PRINT_DEC 1, ax
     jmp print
     
 end:
