@@ -1,9 +1,9 @@
 %include "io.inc"
 
 section .data
-str_fim db  "fim de programa",0
-str_pos db  "o numero eh primo",0
-str_neg db  "o numero nao eh primo",0
+str_fim db  "fim de programa",10,0
+str_pos db  " eh primo",10,0
+str_neg db  " nao eh primo",10,0
 
 section .bss
 num         resb    1
@@ -36,13 +36,13 @@ while:
     jmp while
 
 count:
-    mov al, byte [cont]
-    inc al
-    mov byte [cont], al
+    inc byte [cont]
     jmp while
 
 teste:
-    cmp dword [num], 2
+    mov al, byte[num]
+    PRINT_DEC 2, al
+    cmp byte [cont], 2
     je primo
     jmp nprimo
     
@@ -55,6 +55,5 @@ nprimo:
     jmp end
     
 end:
-    NEWLINE
     PRINT_STRING str_fim
     ret
