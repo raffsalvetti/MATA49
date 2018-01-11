@@ -1,0 +1,10 @@
+/Debug/
+/Release/
+/Mingw_Cygwin/
+/Mingw_Cygwin/
+/Debug_Cygwin/
+/Release_Cygwin/
+/bin/
+.class
+.cproject
+.settings/
