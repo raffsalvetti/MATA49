@@ -1,50 +1,29 @@
 %include "io.inc"
 
-%define str_len 256
+;	Faca um programa que conte quantos
+;	caracteres existem em uma string
 
+%define str_max_len 256
 section .data
     lbl_str1    db  "tamanho str1: ",0
-    lbl_str2    db  "tamanho str2: ",0
     
 section .bss
-    str1        resb    str_len
-    str2        resb    str_len
-    str1_len    resd    1
-    str2_len    resd    1
+    str1        resb    str_max_len
     
 section .text
 global CMAIN
 CMAIN:
-    GET_STRING  str1, str_len
-    GET_STRING  str2, str_len
-    mov eax, 0
-    mov ebx, 0
-    mov ecx, -1
-    mov edx, 0
-    
-    
-count1:
-    inc ecx
-    cmp byte [str1 + ecx], 0
-    je print1
-    jmp count1
-    
-print1:
-    dec ecx
-    PRINT_STRING lbl_str1
-    PRINT_DEC 1, ecx
-
-count2:
-    inc eax
-    cmp byte [str2 + eax], 0
-    je print2
-    jmp count2
-    
-print2:
-    dec eax
-    NEWLINE
-    PRINT_STRING lbl_str2    
-    PRINT_DEC 1, eax
-
-end:
+    mov ebp, esp; for correct debugging
+    GET_STRING  str1, str_max_len       ;   le a string no campo input
+    xor eax, eax                        ;   zera o valor de eax
+    mov edi, str1                       ;   copia o endereco de str1 para edi (EDI = Extended Destination Index)
+    mov eax, 0                          ;   copia 0 para eax
+                                        ;   scasb usa eax como valor de referencia para a busca
+    mov ecx, str_max_len
+    repnz scasb                         ;   repete o comando scasb enquanto ecx > 0
+                                        ;   scasb busca pelo caractere que esta EAX e se encontrar define FZ
+    inc ecx                             ;   ECX eh incrementado pois repnz executa o comando mais uma vez depois de encontrar o caractere
+    mov eax, str_max_len
+    sub eax, ecx                        ;   subtrai a posicao final do tamanho total da string
+    PRINT_DEC 2, eax
     ret    

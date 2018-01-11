@@ -1,5 +1,9 @@
 %include "io.inc"
 
+;	Faça um programa que compare duas strings e
+;	indique se elas são iguais
+;	implementacao sem usar funcoes de string
+
 %define str_len 256
 
 section .data
