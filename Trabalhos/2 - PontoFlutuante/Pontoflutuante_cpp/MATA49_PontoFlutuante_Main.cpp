@@ -44,16 +44,19 @@ int main(int argc, char* argv[]) {
 		cout << "parametro de entrada: " << argv[1] << endl;
 		x = atof(argv[1]);
 	}
-
+	cout << "inicio" << endl;
 	for (FuncaoUnaria<double, double> *fu : funcoes) {
 		if(fu != NULL) {
 			double outCpp = fu->operarCpp(x);
 			double outAsm = fu->operarAsm(x);
+			TimeWorks *tw = (dynamic_cast<TimeWorks*>(fu));
 			cout << fu->getName() << "(" << x << ")" << endl;
-			cout << "\tResultado C++: " << outCpp << "; Tempo C++: " << (dynamic_cast<TimeWorks*>(fu))->getExecTimeCpp() << endl;
-			cout << "\tResultado Asm: " << outAsm << ";Tempo Asm: " << (dynamic_cast<TimeWorks*>(fu))->getExecTimeAsm() << endl;
+			cout << "\tResultado C++: " << outCpp << "; Tempo C++: " << tw->getExecTimeCpp() << endl;
+			cout << "\tResultado Asm: " << outAsm << ";Tempo Asm: " << tw->getExecTimeAsm() << endl;
+			cout << "\tGanho: " << tw->getExecTimeCpp().count() << " / " << tw->getExecTimeAsm().count() << " = " << (tw->getExecTimeCpp().count() / (tw->getExecTimeAsm().count() == 0 ? 0.00001 : tw->getExecTimeAsm().count())) << endl;
 			cout << endl;
 		}
 	}
 	cout << "fim" << endl;
+	system("pause");
 }
